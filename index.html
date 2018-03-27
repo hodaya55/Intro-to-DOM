@@ -56,7 +56,10 @@
             item.appendChild(nodetext);
             list.appendChild(item);
         }
+
+
     </script> //************
+    <br>
     <div id="container"></div>
     <script>
         var a = document.createElement('a');
@@ -72,25 +75,29 @@
         document.getElementById("container").appendChild(a);
         a.style.backgroundColor = "aqua";  
     </script>
+
+
+
     <br> //************
+    <br>
     <form>
         Username:
         <input id="user" type="text" placeholder="5 characters or more">
         <br> Email:
-        <input type="e-mail" placeholder="yourname@email.com">
+        <input id="email" type="e-mail" placeholder="yourname@email.com">
         <br> Password:
         <input id="pswrd" type="password">
         <br> Repeat password:
         <input id="reppswrd" type="password">
         <br> Phone Number:
-        <input type="number">
+        <input id="phone" type="number">
         <br> Country:
         <input id="country" type="text">
         <br>
         <button type="button" onclick="submitForm();">Submit</button>
-        <div id="MSGvalidation">
+        <div id="greetingMsg">
         </div>
-        <ul id="MSG"  > </ul>
+        <ul id="MSG" style="color: red;"> </ul>
     </form>
 
     <script type="text/javascript">
@@ -122,50 +129,65 @@
 
         var submitForm = function () {
 
-            var username =  document.getElementById("user").value;
-            var idU="idUserItem";
-            // var ans=false;
-           var ans = checkExist(idU);
-            if (username.length < 5) 
-            {
+            var username = document.getElementById("user").value;
+            var idU = "idUserItem";
+            var ans = checkExist(idU);
+            if (username.length < 5) {
                 if (!ans) // if the id isnt in the list..then append to list
-                    append("The supplied username is too short, try again using 5 or more characters", idU);
-            }
-             else if (ans)
-                    clear(idU);
-    
+                    append("The supplied username is too short, try again using 5 or more characters", idU); 
+                    }
+
+            else if (ans)
+                clear(idU);
+
             var password = document.getElementById("pswrd").value;
-            var idP="idPswrd";
-            ans=checkExist(idP);
-            if (password.length <= 6 ) {
+            var idP = "idPswrd";
+            ans = checkExist(idP);
+            if (password.length < 6) {
                 if (!ans)
-                append("the password is not......", idP);
-                //    document.getElementById("MSGvalidation").innerHTML = "The password is not at least 6 characters long";
+                    append("The password is not at least 6 characters long", idP);
             }
-            else if(ans)
-                // document.getElementById("MSGvalidation").innerHTML = "";
+            else if (ans)
                 clear(idP);
 
-            // var repeatpswrdElement = document.getElementById("reppswrd");
-            // var repeatpswrd = repeatpswrdElement.value;
-            // if (repeatpswrd !== password)
-            //     document.getElementById("MSGvalidation").innerHTML = "Both passwords are not the same.";
-            // else
-            //     document.getElementById("MSGvalidation").innerHTML = "";
+            var repeatpswrd = document.getElementById("reppswrd").value;
+            var idReP = "idReP";
+            ans = checkExist(idReP);
+            if (repeatpswrd !== password && password.length > 0 && repeatpswrd.length > 0) {
+                if (!ans) // if the id isnt in the list..then append to list
+                    append("The passwords are not the same", idReP);
+            }
+            else if (ans)
+                clear(idReP);
+
+            var country = document.getElementById("country").value;
+            var idC = "idCountry";
+            ans = checkExist(idC);
+            // var countryLow= document.getElementById("country").style.textTransform= "lowercase";
+            // if (countryLow!== "israel" && countryLow!= "usa") {
+            if (country!= "israel" && country!= "usa") {
+                if (!ans) // if the id isnt in the list..then append to list
+                    append("The country can be either Israel or USA", idC);
+            }
+            else if (ans)
+                clear(idC);
+
+      var phone = document.getElementById("phone").value;
+            var idPhone = "idPhone";
+            ans = checkExist(idPhone);
+            if (phone.length < 15) {
+                if (!ans) // if the id isnt in the list..then append to list
+                    append("The phone number is longer than 15 digits", idPhone);
+            }
+            else if (ans)
+                clear(idPhone);
 
 
-            var countryElement = document.getElementById("country");
-            var country = countryElement.value;
-            // if (country !== "israel" || country !== "usa")
-            // document.getElementById("MSGvalidation").innerHTML = "The country can be either Israel or USA.";
-            // else
-            //     document.getElementById("MSGvalidation").innerHTML = "";
-
-
-
-
-
-
+            if (list.childNodes.length-1  == 0 )  { // there is no error list , לבדוק לגבי המייל איך בודקים תקינות
+                var m = document.getElementById('greetingMsg');
+                m.innerHTML = "Everything is allrighttttttt!";
+                m.style.color = "green";
+            }
 
 
         }
