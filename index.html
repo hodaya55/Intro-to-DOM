@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="C:\Users\tovtov\Desktop\front-end-course\week2\Shoestrap\shoestrap.css">
+    <title>Intro to DOM</title>
+</head>
+
+<body>
+    <!-- /* Create a button that changes text when you click it 
+    and changes back when you click it again. Hint: one possible solution
+    uses an if statement.*/  -->
+
+
+    <button id="btn" onclick="changeText();">change me plz!</button>
+    <script type="text/javascript">
+        var isChanged = true;
+        var b = document.getElementById("btn");
+
+        var changeText = function changeText() {
+
+            if (isChanged) {
+                b.innerHTML = "somebody changed me!";
+                isChanged = false;
+            }
+            else {
+                b.innerHTML = "change me plz!";
+                isChanged = true;
+            }
+        }
+    </script>
+
+
+
+    <br> //************
+    <p id='para1' onmouseenter="onenter();" onmouseleave="onleave();"> Hover Over Me</p>
+    <script type="text/javascript">
+        var onenter = function () {
+            document.getElementById('para1').innerHTML = "Thank You!";
+        }
+        var onleave = function () {
+            document.getElementById('para1').innerHTML = "Hover Over Me!";
+        }
+    </script> //************
+    <ul id="mylist" onclick="appendItem();">
+        <li>A list item</li>
+    </ul>
+    <script>
+        function appendItem() {
+            var list = document.getElementById('mylist');
+            var nodetext = document.createTextNode("Another list item");
+            var item = document.createElement('li');
+            item.appendChild(nodetext);
+            list.appendChild(item);
+        }
+    </script> //************
+    <div id="container"></div>
+    <script>
+        var a = document.createElement('a');
+        var text = document.createTextNode("Elevation's Website");
+        a.appendChild(text);
+        // var attr= document.createAttribute('href');
+        // attr.value="www.elevationacademy.co";
+        // a.attributes.setNamedItem(attr);
+
+        /***short-way of adding an attribute to an element:***/
+        a.setAttribute("href", "http://www.elevationacademy.co");
+
+        document.getElementById("container").appendChild(a);
+        a.style.backgroundColor = "aqua";  
+    </script>
+    <br> //************
+    <form>
+        Username:
+        <input id="user" type="text" placeholder="5 characters or more">
+        <br> Email:
+        <input type="e-mail" placeholder="yourname@email.com">
+        <br> Password:
+        <input id="pswrd" type="password">
+        <br> Repeat password:
+        <input id="reppswrd" type="password">
+        <br> Phone Number:
+        <input type="number">
+        <br> Country:
+        <input id="country" type="text">
+        <br>
+        <button type="button" onclick="submitForm();">Submit</button>
+        <div id="MSGvalidation">
+        </div>
+        <ul id="MSG"  > </ul>
+    </form>
+
+    <script type="text/javascript">
+
+        var list = document.getElementById('MSG');
+
+        var checkExist = function checkExist(id) {
+            for (var i = 1; i < list.childNodes.length; i++)
+                if (list.childNodes[i].id === id)
+                    return true; //  id exist in list ,exit the func
+            return false;
+        }
+
+        var clear = function clear(id) {
+            var item = document.getElementById(id);
+            list.removeChild(item);
+        }
+
+        var append = function append(msg, id) {
+
+            var nodetext = document.createTextNode(msg);
+            var item = document.createElement('li');
+            item.setAttribute("id", id);
+            item.appendChild(nodetext);
+            list.appendChild(item);
+        }
+
+
+
+        var submitForm = function () {
+
+            var username =  document.getElementById("user").value;
+            var idU="idUserItem";
+            // var ans=false;
+           var ans = checkExist(idU);
+            if (username.length < 5) 
+            {
+                if (!ans) // if the id isnt in the list..then append to list
+                    append("The supplied username is too short, try again using 5 or more characters", idU);
+            }
+             else if (ans)
+                    clear(idU);
+    
+            var password = document.getElementById("pswrd").value;
+            var idP="idPswrd";
+            ans=checkExist(idP);
+            if (password.length <= 6 ) {
+                if (!ans)
+                append("the password is not......", idP);
+                //    document.getElementById("MSGvalidation").innerHTML = "The password is not at least 6 characters long";
+            }
+            else if(ans)
+                // document.getElementById("MSGvalidation").innerHTML = "";
+                clear(idP);
+
+            // var repeatpswrdElement = document.getElementById("reppswrd");
+            // var repeatpswrd = repeatpswrdElement.value;
+            // if (repeatpswrd !== password)
+            //     document.getElementById("MSGvalidation").innerHTML = "Both passwords are not the same.";
+            // else
+            //     document.getElementById("MSGvalidation").innerHTML = "";
+
+
+            var countryElement = document.getElementById("country");
+            var country = countryElement.value;
+            // if (country !== "israel" || country !== "usa")
+            // document.getElementById("MSGvalidation").innerHTML = "The country can be either Israel or USA.";
+            // else
+            //     document.getElementById("MSGvalidation").innerHTML = "";
+
+
+
+
+
+
+
+
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- <div class="row3">
+        <div class="shoestrap col-3">
+            <img src="img.jpg"> </div>
+        <div class=" shoestrap col-3">
+            <img src="img.jpg"> </div>
+        <div class=" shoestrap col-3">
+            <img src="img.jpg"> </div>
+    </div> -->
+
+</body>
+
+</html>
